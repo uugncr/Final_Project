@@ -1,25 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-def gaussian(x, x0, std_dev):
-    exp = np.exp(-((x - x0) ** 2) / (2 * std_dev ** 2))
-    coefficient = 1 / (std_dev * np.sqrt(2 * np.pi))
-    return coefficient * exp
+from scipy.integrate import quad
 
 
-x0 = 3
+def gaussian(x, x0, std_dev,λ):
+    if x <x0:
+        exp = np.exp(-((x - x0) ** 2) / (2 * std_dev ** 2))
+        #coefficient = 1 / (std_dev * np.sqrt(2 * np.pi))
+    else:
+        exp = np.exp(λ * x)
+
+    return exp
+
+
+x0 = 500
 std_dev = 100
 
 
 
 
-
-
-
-
-
 x = np.linspace(0, 1024, 20)  # x değerleri: 1024 kanal 20 ns 
-y = gaussian(x, x0, std_dev)  # x değerlerine karşılık gelen yoğunluk değerlerini hesaplar
+y = gaussian(x, x0, std_dev,λ)  # x değerlerine karşılık gelen yoğunluk değerlerini hesaplar
 
 
 plt.plot(x, y)
