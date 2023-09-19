@@ -1,24 +1,26 @@
 import numpy as np 
 import matplotlib.pyplot as plt
+from scipy.integrate import quad
 
-def gaussian(x, x0, std_dev, lambda_val):
-    if x <= x0:
-        exp = np.exp(-((x - x0) ** 2) / (2 * std_dev ** 2))
-        coefficient = 1 / (std_dev * np.sqrt(2 * np.pi))
-        return coefficient * exp
-    else:
-        return np.exp(-lambda_val * (x - x0))
+def gaussian(x, x0, std_dev):
+    exp = np.exp(-((x - x0) ** 2) / (2 * std_dev ** 2))
+    #coefficient = 1 / (std_dev * np.sqrt(2 * np.pi))
+    return exp
 
-x = np.linspace(0, 1024, 20)
-x0 = 0
-std_dev = 1
-lambda_val = 0.5
+def calculate_x0(std_dev):
+    integrand = lambda x: x * gaussian(x, 0, std_dev)
+    result, _ = quad(integrand, -np.inf, np.inf)
+    return result
 
-y = [gaussian(x_val, x0, std_dev, lambda_val) for x_val in x]
+
+x = np.linspace(0, 1024)
+std_dev = 200
+x0 = calculate_x0(std_dev)
+y = [gaussian(x_val, x0, std_dev) for x_val in x]
 
 plt.plot(x, y)
 plt.xlabel('x')
 plt.ylabel('y')
-plt.title('Mixed Gaussian and Exponential function')
+plt.title('Gaussian function')
 plt.grid(True)
 plt.show()

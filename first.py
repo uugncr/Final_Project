@@ -13,14 +13,16 @@ def gaussian(x, x0, std_dev,λ):
     return exp
 
 
+def V(x0, std_dev):
+    result, _ = quad(lambda x: (x - x0) ** 2 * gaussian(x, x0, std_dev), -np.inf, np.inf)
+    return result
+
 x0 = 500
 std_dev = 100
 
 
-
-
 x = np.linspace(0, 1024, 20)  # x değerleri: 1024 kanal 20 ns 
-y = gaussian(x, x0, std_dev,λ)  # x değerlerine karşılık gelen yoğunluk değerlerini hesaplar
+y = gaussian(x, x0, std_dev,)  # x değerlerine karşılık gelen yoğunluk değerlerini hesaplar
 
 
 plt.plot(x, y)
