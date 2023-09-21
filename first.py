@@ -17,6 +17,12 @@ def V(x0, std_dev):
     result, _ = quad(lambda x: (x - x0) ** 2 * gaussian(x, x0, std_dev), -np.inf, np.inf)
     return result
 
+def calculate_x0(std_dev):
+    integrand = lambda x: x * gaussian(x, 0, std_dev)
+    result, _ = quad(integrand, -np.inf, np.inf)
+    return result
+
+
 x0 = 500
 std_dev = 100
 
