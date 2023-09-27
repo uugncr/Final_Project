@@ -1,34 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
 
-def gauss(t, A, t0, sigma):
-    exp = np.exp(-0.5 * ((t - t0) ** 2 / sigma ** 2))
-    return A * exp
+def gauss(t, t0, sigma):
+    expo = np.exp(-np.power(t - t0 , 2) / (2 * np.power(sigma, 2)))
+    return expo
 
-def expo(t, A, lamda):
-    exp = np.exp(-lamda * t)
-    return A * exp
+def f(t):
+    lamda = 0.1
+    mix = np.exp(- lamda * t)
+    return mix
 
+def combined_function():
+    t = np.linspace(0, 200, 1000)  # 0 ile 200 arasında 1000 nokta oluştur
+    t0 = np.random.randint(50, 150)  # 50 ile 150 arasında rastgele bir t0 değeri seç
 
-N = 100
-M =3 * N
-t = np.linspace(0, 50, N)  
-t1 = np.linspace(50, 200, M)
+    gauss_values = gauss(t, t0, 10)  # Gauss fonksiyonunu hesapla
+    f_values = f(t[t > t0])  # t > t0 olan noktalarda f(t) fonksiyonunu hesapla
 
-y = gauss(t, 100, 80, 50) 
-y_data = y + np.random.uniform(0, 50, N)
-popt, pcov = curve_fit(gauss, t, y_data) 
-#print(popt)
+    return np.concatenate((gauss_values, f_values))  # Gauss ve f fonksiyonlarının birleşimini döndür
 
-y1 = expo(t1, 1,100)
-y1_data = y1 + np.random.uniform(50, 200, M)
-popt, pcov = curve_fit(expo, t1, y1_data) 
-#print(popt)
+# Örnek kullanım
+result = combined_function()
+data = np.array(result)
 
-plt.plot(t, y, '-b')
-plt.plot(t1, y1, '-r')
+mean = np.mean(data)
+maximum = np.max(data)
+minimum = np.min(data)
 
-plt.plot(t, y_data, '.')
-plt.plot(t1, y1_data, '*')
+print(mean, maximum, minimum)
+
+plt.plot(data, marker='.')
 plt.show()
