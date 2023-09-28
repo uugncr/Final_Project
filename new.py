@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+
+
 def gauss(t, t0, sigma):
     expo = np.exp(-(t - t0)** 2 / (2 * (sigma ** 2)))
     return expo
@@ -36,7 +38,7 @@ maximum = np.max(data)
 minimum = np.min(data)
 print(mean, maximum, minimum)
 
-plt.plot(uniform_data) # marker = '.'
+plt.plot(uniform_data, marker = '.') # marker = '.'
 
 plt.show()
 

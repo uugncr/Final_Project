@@ -17,12 +17,12 @@ t = np.linspace(0, 50, N)
 t1 = np.linspace(50, 200, N)
 
 y = gauss(t, 100, 80, 50) 
-y_data = y + np.random.uniform(0, 50, N)
+y_data = y + np.random.uniform(0, 0.3)
 popt, pcov = curve_fit(gauss, t, y_data) 
 print(popt)
 
 y1 = expo(t1, 100,100)
-y1_data = y1 + np.random.uniform(50, 200, N)
+y1_data = y1 + np.random.uniform(0, 0.3)
 #popt, pcov = curve_fit(expo, t1, y1_data) 
 #print(popt)
 
