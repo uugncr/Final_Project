@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 
+
 def profile(f, f0, gamma, offset):  #frekansa bagli bir egriyi gosteren Loorentz fonksiyonu
     return 1 / ((f - f0) / gamma)**2 * offset # merkezi = f0, genisligi = gamma, 0'dan yuksekligi = offset
 
