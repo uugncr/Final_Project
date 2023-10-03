@@ -1,39 +1,44 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import random
-from noise import pnoise1
 
+# Fonksiyonlar
 def gauss(t, t0, s_r):
     expo = np.exp(-(t - t0)**2 / (2 * (s_r ** 2)))
     return expo
 
-def expo(t, s_f):
-    mix = np.exp(- (t/2) * (1 / s_f ** 2))
-    return mix
+def expo(t, t0, tf, s_f):
+    exp = np.exp(-((t - t0) / s_f))
+    mask = (t >= t0) & (t <= tf)
+    return exp * mask
 
+# Parametreler
+tr = 0  # Başlangıç zamanı
+t0 = 2  # Gauss fonksiyonunun merkezi
+tf = 5  # Bitiş zamanı
+s_r = 1  # Gauss fonksiyonunun standart sapması
+s_f = 0.5  # Expo fonksiyonunun hız parametresi
 
-def combined_function(tr, t0, tf):
-    t = np.linspace(0, 1024, 512)
-    t_gauss = t[np.logical_and(t >= tr, t <= t0)]  
-    t_f = t[np.logical_and(t >= t0, t <= tf)]  
-    
-    gauss_values = gauss(t_gauss, t0, 200)  
-    f_values = expo(t_f, 100)
-    
-    return np.concatenate((gauss_values, f_values))
+# Zaman aralığı ve adım sayısı
+t = np.linspace(tr, tf, num=100)
+# Fonksiyonları hesapla
+gauss_values = gauss(t, t0, s_r)
+expo_values = expo(t, t0, tf, s_f)
 
-
-tr = 0
-t0 = 500
-tf = 1024
-
-result = 6 + combined_function(tr, t0, tf) 
-#print(result)
-
-
-data = np.array(result)
-
-s_data = data
-
-plt.plot(s_data, marker='.')
+# Cizdirme
+plt.plot(t, gauss_values, label='Gauss')
+plt.plot(t, expo_values, label='Expo')
+plt.axvline(x=t0, color='r', linestyle='--', label='t0')
+plt.axvline(x=tf, color='g', linestyle='--', label='tf')
+plt.legend()
+plt.xlabel('t')
+plt.ylabel('Değer')
+plt.title('Gauss ve Expo Fonksiyonları')
 plt.show()
+
+# Gauss fonksiyonu tamamlama süresi
+gauss_completion_time = t0 - tr
+# Expo fonksiyonu tamamlama süresi
+expo_completion_time = tf - t0
+
+print('Gauss fonksiyonu', gauss_completion_time, 'saniyede tamamlandı.')
+print('Expo fonksiyonu', expo_completion_time, 'saniyede tamamlandı.')

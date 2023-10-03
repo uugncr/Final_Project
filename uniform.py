@@ -1,33 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def noise_function(time_range, noise_type='normal', mean=0, stddev=1):
-    if noise_type == 'normal':
-        noise = np.random.normal(mean, stddev, len(time_range))
-    elif noise_type == 'uniform':
-        noise = np.random.uniform(mean, stddev, len(time_range))
-    elif noise_type == 'poisson':
-        noise = np.random.poisson(mean, len(time_range))
+def gauss(t, t0, s_r, s_f):
+    if t < t0:
+        expo = np.exp(-(t - t0)**2 / (2 * (s_r ** 2)))
+        return expo
     else:
-        raise ValueError("Invalid noise type. Possible values: 'normal', 'uniform', 'poisson'")
-    
-    return noise
+        #mix = np.exp(- t * (1 /2 * s_f ** 2)) t=0  icin 
+        mix = np.exp(- (t - t0)**2 /s_f **2 )
+        return mix
 
-# Define the time range
-time_range = np.linspace(0, 1, 100)
+t = np.linspace(0, 1024)
+t0 = 500
+s_r = 100
+s_f = 300
+y = np.array([gauss(i, t0, s_r, s_f) for i in t])
 
-# Generate noise using the noise_function
-noise = noise_function(time_range, noise_type='normal', mean=0, stddev=0.1)
 
-# Add noise to a function
-function_with_noise =  noise
+###################################################
+perfect_gauss = np.exp(-(t - t0) ** 2 / (2 * s_r ** 2)) / (s_r * np.sqrt(2 * np.pi))
+plt.plot(t, perfect_gauss, '-b')
+###################################################
 
-# Plot the function with noise
-plt.figure(figsize=(10, 4))
-plt.plot(time_range, function_with_noise, label='Function with Noise')
-plt.xlabel('Time')
-plt.ylabel('Function Value')
-plt.title('Function with Noise')
-plt.legend()
-plt.grid(True)
+plt.plot(t, y,'-r')
+plt.xlabel('t')
+plt.ylabel('gauss(t)')
+
 plt.show()
