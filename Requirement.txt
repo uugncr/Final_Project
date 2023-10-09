@@ -2,3 +2,4 @@ Python Version: 3.11
 numpy Version: 1.25.2
 matplotlib Version: 3.8.0
 scipy Version: 1.11.2
+pandas Version: 2.1.1
