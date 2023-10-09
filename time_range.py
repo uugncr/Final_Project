@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
 from scipy import integrate
 
-def f(t, t0, s_r, s_f):
-    N = 20
+def f(t, t0, s_r, s_f,N):
     if t < t0:
         expo = N * np.exp(-(t - t0)**2 / (2 * (s_r ** 2)))
         return expo
@@ -14,12 +13,12 @@ def f(t, t0, s_r, s_f):
 
 
 t = np.linspace(0, 1024, 1024)
-
+N = 20
 t0 = np.random.uniform(0, 1024)
 s_r = 6
 s_f = 25
 
-y = np.array([f(i, t0, s_r, s_f) for i in t])
+y = np.array([f(i, t0, s_r, s_f,N) for i in t])
 
 np.savetxt('gaussian_2.csv', y, delimiter=',')
 
@@ -30,30 +29,31 @@ cs = CubicSpline(t, y)
 t_interp = np.linspace(0, 1024, 10000)
 y_interp = cs(t_interp)
 
-# Find t1 when y = 2 and y < t0
-desired_value = 2
+
+desired_value = N * 0.1
 tolerance = 1e-1
+
+
 for i in range(len(y_interp) - 1):
     if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i + 1] - desired_value) <= tolerance:
         t1 = t_interp[i]
         break
 
-# Find t2 when y = 18 and y < t0
-desired_value = 18
+desired_value = N * 0.9
 for i in range(len(y_interp) - 1):
     if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i + 1] - desired_value) <= tolerance:
         t2 = t_interp[i]
         break
 
-# Find t3 when y = 18 and y > t0
-desired_value = 18
+
+desired_value = N * 0.9
 for i in range(len(y_interp) - 1, 0, -1):
     if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i - 1] - desired_value) <= tolerance:
         t3 = t_interp[i]
         break
 
-# Find t4 when y = 2 and y > t0
-desired_value = 2
+
+desired_value = N * 0.1
 for i in range(len(y_interp) - 1, 0, -1):
     if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i - 1] - desired_value) <= tolerance:
         t4 = t_interp[i]
