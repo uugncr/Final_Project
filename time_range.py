@@ -59,13 +59,6 @@ for i in range(len(y_interp) - 1, 0, -1):
         t4 = t_interp[i]
         break
 
-"""# Find t0 using interpolation
-max_index = np.argmax(y)
-t0_interp = t[max_index]
-t0_value = y[max_index]
-t0_cs = CubicSpline(t, y)
-t0 = t0_cs(t0_value)
-"""
 print(f"t1: {t1}, t2: {t2}, t0:{t0},  t3: {t3}, t4: {t4}")
 
 #Integral 
