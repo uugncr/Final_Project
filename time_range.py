@@ -33,29 +33,29 @@ y_interp = cs(t_interp)
 desired_value = N * 0.1
 tolerance = 1e-1
 
-
+desired_value1 = N * 0.1
 for i in range(len(y_interp) - 1):
-    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i + 1] - desired_value) <= tolerance:
+    if abs(y_interp[i] - desired_value1) <= tolerance and abs(y_interp[i + 1] - desired_value1) <= tolerance:
         t1 = t_interp[i]
         break
 
-desired_value = N * 0.9
+desired_value2 = N * 0.9
 for i in range(len(y_interp) - 1):
-    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i + 1] - desired_value) <= tolerance:
+    if abs(y_interp[i] - desired_value2) <= tolerance and abs(y_interp[i + 1] - desired_value2) <= tolerance:
         t2 = t_interp[i]
         break
 
 
-desired_value = N * 0.9
+desired_value3 = N * 0.9
 for i in range(len(y_interp) - 1, 0, -1):
-    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i - 1] - desired_value) <= tolerance:
+    if abs(y_interp[i] - desired_value3) <= tolerance and abs(y_interp[i - 1] - desired_value3) <= tolerance:
         t3 = t_interp[i]
         break
 
 
-desired_value = N * 0.1
+desired_value4 = N * 0.1
 for i in range(len(y_interp) - 1, 0, -1):
-    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i - 1] - desired_value) <= tolerance:
+    if abs(y_interp[i] - desired_value4) <= tolerance and abs(y_interp[i - 1] - desired_value4) <= tolerance:
         t4 = t_interp[i]
         break
 
