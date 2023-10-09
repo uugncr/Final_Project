@@ -62,10 +62,22 @@ for i in range(len(y_interp) - 1, 0, -1):
 print(f"t1: {t1}, t2: {t2}, t0:{t0},  t3: {t3}, t4: {t4}")
 
 #Integral 
-integral, error = integrate.quad(lambda x: cs(x), t0, t4)
-integral2, error2 = integrate.quad(lambda x: cs(x), t1, t4)
 
-print("integral_oranlari :", integral/integral2)
+integral3, error = integrate.quad(lambda x: cs(x), t0, t4)
+integral4, error2 = integrate.quad(lambda x: cs(x), t1, t4)
+print("integral_oranlari_cs :", integral3/integral4)
+
+
+f_lambda = lambda x: f(x, t0, s_r, s_f, N)
+integral, error = integrate.quad(f_lambda, t0, t4)
+integral2, error2 = integrate.quad(f_lambda, t1, t4)
+print("integral_oranlari_duz :", integral/integral2)
+
+
+
+
+
+
 delta_rise = t2 - t1
 delta_fall = t4 - t3
 print("delta_rise :", delta_rise, "delta_fall :", delta_fall)
