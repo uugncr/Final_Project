@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
+from scipy import integrate
 
 def f(t, t0, s_r, s_f):
     N = 20
@@ -12,36 +13,71 @@ def f(t, t0, s_r, s_f):
         return mix
 
 
-t = np.linspace(0, 1024,1024)
-#t0 = np.random.uniform(0,1023)
-#print(t0)
-t0 = 512
+t = np.linspace(0, 1024, 1024)
+
+t0 = np.random.uniform(0, 1024)
 s_r = 6
 s_f = 25
 
 y = np.array([f(i, t0, s_r, s_f) for i in t])
-#print(y)
+
 np.savetxt('gaussian_2.csv', y, delimiter=',')
 
-cs = CubicSpline(t,y)
+#Interplasyon 
+
+t1, t2, t3, t4 = None, None, None, None
+cs = CubicSpline(t, y)
 t_interp = np.linspace(0, 1024, 10000)
 y_interp = cs(t_interp)
 
+# Find t1 when y = 2 and y < t0
 desired_value = 2
-tolerance = 1e-2
-
+tolerance = 1e-1
 for i in range(len(y_interp) - 1):
     if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i + 1] - desired_value) <= tolerance:
-        print(f"Fonksiyon 2 olduğu nokta: x={t_interp[i]}, y={y_interp[i]}")
+        t1 = t_interp[i]
+        break
+
+# Find t2 when y = 18 and y < t0
+desired_value = 18
+for i in range(len(y_interp) - 1):
+    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i + 1] - desired_value) <= tolerance:
+        t2 = t_interp[i]
+        break
+
+# Find t3 when y = 18 and y > t0
+desired_value = 18
+for i in range(len(y_interp) - 1, 0, -1):
+    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i - 1] - desired_value) <= tolerance:
+        t3 = t_interp[i]
+        break
+
+# Find t4 when y = 2 and y > t0
+desired_value = 2
+for i in range(len(y_interp) - 1, 0, -1):
+    if abs(y_interp[i] - desired_value) <= tolerance and abs(y_interp[i - 1] - desired_value) <= tolerance:
+        t4 = t_interp[i]
+        break
+
+"""# Find t0 using interpolation
+max_index = np.argmax(y)
+t0_interp = t[max_index]
+t0_value = y[max_index]
+t0_cs = CubicSpline(t, y)
+t0 = t0_cs(t0_value)
+"""
+print(f"t1: {t1}, t2: {t2}, t0:{t0},  t3: {t3}, t4: {t4}")
+
+#Integral 
+integral, error = integrate.quad(lambda x: cs(x), t0, t4)
+integral2, error2 = integrate.quad(lambda x: cs(x), t1, t4)
+
+oran = integral/integral2
+print(oran)
 
 
-
-
-
-
-plt.plot(t, y, marker = '.')
+plt.plot(t, y, marker='.')
 plt.xlabel('t')
 plt.ylabel('V')
 
 plt.show()
-
