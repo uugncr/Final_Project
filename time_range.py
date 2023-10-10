@@ -19,7 +19,7 @@ N = 20
 s_r = 6
 s_f = 25
 
-y = np.array([f(i, t0, s_r, s_f,N) for i in t])
+y = np.array([f(i, t0, s_r, s_f, N) for i in t])
 
 np.savetxt('gaussian_2.csv', y, delimiter=',')
 
