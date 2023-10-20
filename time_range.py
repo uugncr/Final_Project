@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
 from scipy import integrate
 
-#Fonksiyon 
+#Fonksiyon new
 
 def f(t, t0, s_r, s_f,N):
     if t < t0:
