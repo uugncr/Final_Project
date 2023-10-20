@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.interpolate import CubicSpline
 from scipy import integrate
 from scipy import interpolate
 
@@ -19,17 +18,16 @@ t = np.linspace(0, 1024, 1024)
 t0 = np.random.uniform(0, 1024)
 N = np.random.uniform(20, 500)
 s_r = np.random.uniform(5.5, 6.5)
-s_f = np.random.uniform(23, 27)
+s_f = np.random.uniform(48, 52)
 
 y = np.array([f(i, t0, s_r, s_f, N) for i in t])
 
 #np.savetxt('gaussian_2.csv', y, delimiter=',')
+print("N:", N, "\nN%10:", N * 0.1, "\nN%90:", N * 0.9)
 
-
-#Interplasyon
 t1 = t[np.where(np.logical_and(y < N * 0.1, t < t0))][-1]
 t2 = t[np.where(np.logical_and(y < N * 0.9, t < t0))][-1]
-t3 = t[np.where(np.logical_and(y > N * 0.9, t > t0))][0]
+t3 = t[np.where(np.logical_and(y > N * 0.9, t > t0))][-1]
 t4 = t[np.where(np.logical_and(y > N * 0.1, t > t0))][-1]
 
 print(f"t1: {t1}\nt2: {t2}\nt0: {t0}\nt3: {t3}\nt4: {t4}")
