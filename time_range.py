@@ -14,25 +14,25 @@ def f(t, t0, s_r, s_f,N):
         return mix
 
 t = np.linspace(0, 1024, 1024)
+
 t0 = np.random.uniform(0, 1024)
-N = 20
-s_r = 6
-s_f = 25
+N = np.random.uniform(20, 500)
+s_r = np.random.uniform(5.5, 6.5)
+s_f = np.random.uniform(23, 27)
 
 y = np.array([f(i, t0, s_r, s_f, N) for i in t])
 
-np.savetxt('gaussian_2.csv', y, delimiter=',')
+#np.savetxt('gaussian_2.csv', y, delimiter=',')
 
 #Interplasyon 
 
 t1, t2, t3, t4 = None, None, None, None
 
 cs = CubicSpline(t, y)
-t_interp = np.linspace(0, 1024, 100000)
+t_interp = np.linspace(0, 1024)
 y_interp = cs(t_interp)
 
 
-desired_value = N * 0.1
 tolerance = 1e-1
 
 desired_value_1 = N * 0.1
