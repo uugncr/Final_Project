@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy import integrate
 from scipy import interpolate
 
-#Fonksiyon 
+#Fonksiyon aaa
 
 def f(t, t0, s_r, s_f,N):
     if t < t0:
