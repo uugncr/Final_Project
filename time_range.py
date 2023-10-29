@@ -4,7 +4,7 @@ from scipy import stats
 from scipy import integrate
 from scipy import interpolate
 
-#Fonksiyon
+#Fonksiyon aa
 
 def f(t, t0, s_r, s_f,N):
     if t < t0:
@@ -29,7 +29,7 @@ noise = np.random.uniform(4, 12, 1024)
 peak = noise + y
 
 #np.savetxt('noise.csv', noise, delimiter=',')
-np.savetxt('gaussian.csv', peak, delimiter=',')
+#np.savetxt('gaussian.csv', peak, delimiter=',')
 
 
 
