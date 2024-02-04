@@ -1,25 +1,24 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
-# Load the data from your files
-data_25 = pd.read_csv('/Users/uuu/Final_Project/parameters25.csv')
-data_50 = pd.read_csv('/Users/uuu/Final_Project/parameters50.csv')
-data_100 = pd.read_csv('/Users/uuu/Final_Project/parameters100.csv')
 
-# Plotting the data
-plt.figure(figsize=(10, 6))
 
-# Plot each dataset with the specified color
-plt.scatter(data_25['N'], data_25['fom'], color='red', label='Parameter 25')
-plt.scatter(data_50['N'], data_50['fom'], color='blue', label='Parameter 50')
-plt.scatter(data_100['N'], data_100['fom'], color='green', label='Parameter 100')
+file_paths = [
+    '/Users/uuu/Final_Project/parameters25_50000.csv',
+    '/Users/uuu/Final_Project/parameters50_50000.csv',
+    '/Users/uuu/Final_Project/parameters100_50000.csv',
+]
 
-# Adding labels and title
-plt.xlabel('N (x-axis)')
-plt.ylabel('fom (y-axis)')
-plt.title('Scatter Plot of Parameters')
-plt.legend()
+# Dosyaları yükleyip birleştirin
+data_frames = [pd.read_csv(file_path) for file_path in file_paths]
+combined_data = pd.concat(data_frames)
 
-# Show the plot
+# İkinci pencerede verilerin yoğunlaştığı alanları gösteren grafik
+plt.figure(figsize=(12, 8))
+plt.hist2d(combined_data['N'], combined_data['fom'], bins=50, cmap='Reds')
+plt.colorbar(label='Yoğunluk')
+plt.title("Verilerin Yoğunlaştığı Alanlar")
+plt.xlabel("N")
+plt.ylabel("FOM")
+plt.grid(True)
 plt.show()
-

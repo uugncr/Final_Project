@@ -10,16 +10,15 @@ def f(t, t0, s_r, s_f, N):
     return N * expo if t < t0 else N * mix
 
 # Veri çerçeveleri ve listeleri
-gaussian_data = pd.DataFrame()
+#gaussian_data = pd.DataFrame()
 parameters_list = []
 
-for i in range(500):
+for i in range(50000):
     t = np.linspace(0, 200, 1024)
-    t0 = np.random.uniform(30,50)
-    N = np.random.uniform(50, 800)
-    s_r = np.random.uniform(5.5, 6.5)
-    s_f = np.random.uniform(98,102)
-    
+    t0 = round(np.random.uniform(30,170), 4)
+    N = round(np.random.uniform(50, 800), 4)
+    s_r = round(np.random.uniform(5.5, 6.5), 4)
+    s_f = round(np.random.uniform(13,17), 4)
     # Gaussian sinyali üretiliyor
     y = np.array([f(i, t0, s_r, s_f, N) for i in t])
     noise = np.random.uniform(2, 8, 1024)
@@ -47,18 +46,18 @@ for i in range(500):
     d_f = t4 - t3
 
     # Veriler listeye ekleniyor
-    new_columns = {f'signal_{i}': [peak] for i in range(len(peak))}
-    new_columns_df = pd.DataFrame(new_columns)
+    #new_columns = {f'signal_{i}': [peak] for i in range(len(peak))}
+    #new_columns_df = pd.DataFrame(new_columns)
 
     # Concatenate with the original DataFrame
-    gaussian_data = pd.concat([gaussian_data, new_columns_df], axis=1)
-    parameters_list.append({'t0': t0, 's_r': s_r, 's_f': s_f, 'N': N, 'd_r': d_r, 'd_f': d_f, 'total_integral': integral, 'tail_integral': integral2, 'fom': fom})
+    #gaussian_data = pd.concat([gaussian_data, new_columns_df], axis=1)
+    parameters_list.append({'t0': t0, 't1': t1, 't2': t2, 't3': t3, 't4': t4, 's_r': s_r, 's_f': s_f, 'N': N, 'd_r': d_r, 'd_f': d_f, 'total_integral': integral, 'tail_integral': integral2, 'fom': fom})
 
 
 # Listeyi DataFrame'e dönüştürme
 parameters_data = pd.DataFrame(parameters_list)
 
 # Verileri kaydetme (burada kullanıcının belirleyebileceği dinamik bir yol kullanılabilir)
-gaussian_data.to_csv('data100.csv', index=False)
-parameters_data.to_csv('parameters100.csv', index=False)
+#gaussian_data.to_csv('data.csv', index=False)
+parameters_data.to_csv('parameters15_50000.csv', index=False)
 
