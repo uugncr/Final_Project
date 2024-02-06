@@ -1,5 +1,6 @@
-import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 file_paths = [
     '/Users/uuu/Final_Project/parameters25.csv',
@@ -7,26 +8,21 @@ file_paths = [
     '/Users/uuu/Final_Project/parameters100.csv',
 ]
 
-# Dosyaları yükleyip birleştirin
-data_frames = [pd.read_csv(file_path) for file_path in file_paths]
-combined_data = pd.concat(data_frames)
+# Dosyaları okuyup birleştir
+dfs = [pd.read_csv(file_path) for file_path in file_paths]
+combined_df = pd.concat([df[['N', 'fom']] for df in dfs], ignore_index=True)
 
-# Grafik çizimi
-plt.figure(figsize=(10, 6))  # Grafiğin boyutunu ayarla
-sc = plt.scatter(combined_data['N'], combined_data['fom'], c=combined_data['momentum'], cmap='viridis')  # N, fom ve momentum sütunlarına göre saçılım grafiği oluştur
+# Verileri tanımla
+x = combined_df['N']
+y = combined_df['fom']
 
-# Renk çubuğu ekle
-plt.colorbar(sc, label='Momentum')
-
-# X ve Y eksenlerinin sınırlarını ayarla
-plt.xlim(0, 600)
-plt.ylim(0.5, 1)
-
-# Eksen başlıklarını ve grafiğin başlığını ekle
+# HT2F 2D histogram grafiğini oluştur
+plt.figure(figsize=(10, 6))
+plt.hexbin(x, y, gridsize=50, cmap='viridis', mincnt=1)
+plt.colorbar(label='Frekans')
 plt.xlabel('N')
-plt.ylabel('FOM')
-plt.title('Momentum ve Renk Skalası ile Görselleştirme')
-
-# Grafiği göster
+plt.ylabel('fom')
+plt.title('N vs fom HT2F 2D Histogram')
 plt.show()
+
 
