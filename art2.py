@@ -1,27 +1,34 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import seaborn as sns
+import pandas as pd
 
-#Load the data from your files
-data_25 = pd.read_csv('/Users/uuu/Final_Project/parameters25_50000.csv')
-data_50 = pd.read_csv('/Users/uuu/Final_Project/parameters50_50000.csv')
-data_100 = pd.read_csv('/Users/uuu/Final_Project/parameters100_50000.csv')
+# Dosya yolları
 
-# Plotting the data
-plt.figure(figsize=(10, 6))
+file_paths = [
+    '/Users/uuu/Final_Project/parameters25.csv',
+    '/Users/uuu/Final_Project/parameters50.csv',
+    '/Users/uuu/Final_Project/parameters100.csv',
+]
 
-# Plot density plot for each dataset with specified color
-sns.kdeplot(data_25['total_integral'], color='red', label='Parameter 25')
-sns.kdeplot(data_50['total_integral'], color='green', label='Parameter 50')
-sns.kdeplot(data_100['total_integral'], color='blue', label='Parameter 100')
+# Veri setlerini okuma
+dataframes = [pd.read_csv(file_path) for file_path in file_paths]
 
-# Add labels and title
-plt.xlabel('X-axis label')
-plt.ylabel('Density')
-plt.title('Density Plots for Different Parameters')
+# Yoğunluk grafiği için geniş bir figür oluşturma
+plt.figure(figsize=(10, 8))
 
-# Show legend
+# Her veri seti için yoğunluk grafiği çizme ve mappable nesnesini tutma
+cbar_ax = None
+for i, df in enumerate(dataframes):
+    ax = sns.kdeplot(data=df, x="total_integral", y="tail_integral", cmap="viridis", fill=True, alpha=0.5, label=f'File {i+1}')
+    if cbar_ax is None:
+        cbar_ax = ax
+
+# Color bar eklemek için mappable nesnesini kullanma
+plt.colorbar(cbar_ax.collections[0], ax=ax, label='Density')
+
+plt.title('Combined Density Plots for All Files')
+plt.xlabel('total_integral')
+plt.ylabel('tail_integral')
 plt.legend()
-
-# Show plot
 plt.show()
+

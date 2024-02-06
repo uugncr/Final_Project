@@ -12,15 +12,21 @@ def f(t, t0, s_r, s_f,N):
         expo = N * np.exp(-(t - t0)**2 / (2 * (s_r ** 2)))
         return expo
     else:
-        mix = N * np.exp(- (t - t0)**2 /s_f **2 )
+        mix = N * np.exp(- (t - t0)**2 /s_f**2 )
         return mix
 
 t = np.linspace(0, 200, 1024)
-t0 = np.random.uniform(30, 50)
+t0 = np.random.uniform(30,31)
+"""
 N = np.random.uniform(20, 500)
 s_r = np.random.uniform(5.5, 6.5)
 #s_f = np.random.uniform(23, 102)
 s_f = np.random.uniform(48,52)
+print("N:", N, "\nN%10:", N * 0.1, "\nN%90:", N * 0.9, "\ns_r:", s_r, "\ns_f:", s_f)
+"""
+N = 400
+s_r = 6
+s_f = 25
 print("N:", N, "\nN%10:", N * 0.1, "\nN%90:", N * 0.9, "\ns_r:", s_r, "\ns_f:", s_f)
 
 ########
