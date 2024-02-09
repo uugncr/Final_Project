@@ -27,7 +27,7 @@ best_test_size_mse = 0  # En iyi MSE değerine sahip test_size
 # Döngü içinde test_size ile denemeler
 for test_size in np.arange(0.1, 1.0, 0.1):
     # Veri setini eğitim ve test seti olarak bölme
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6 random_state=80)
     
     # Verileri ölçeklendirme
     X_train_scaled = scaler.fit_transform(X_train)

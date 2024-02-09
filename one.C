@@ -1,12 +1,13 @@
 #include <TCanvas.h>
 #include <TH2F.h>
+#include <TColor.h> // Renk paleti için eklenen kütüphane
 #include <fstream>
 #include <sstream>
 #include <string>
 
 void one() {
     // Histogramı oluştur
-    TH2F *hist = new TH2F("hist", "tail_integral vs fom HT2F 2D Histogram;tail_integral;fom", 6000, 0, 60000, 350, 0.55, 0.90);
+    TH2F *hist = new TH2F("hist", "tail_integral vs fom HT2F 2D Histogram;tail_integral;fom", 600, 0, 60000, 400, 0.55, 0.90);
 
     // Dosya yolları
     const char* file_paths[] = {
@@ -15,7 +16,6 @@ void one() {
         "/Users/uuu/Final_Project/parameters100.csv"
     };
     
-
     // Dosyaları okuyup histograma doldur
     for (auto &file_path : file_paths) {
         std::ifstream file(file_path);
@@ -50,6 +50,16 @@ void one() {
         }
         file.close();
     }
+    
+    // Renk paleti oluştur
+    const Int_t NRGBs = 3;
+    const Int_t NCont =10;
+    Double_t stops[NRGBs] = { 0.00, 0.50, 1.00 };
+    Double_t red[NRGBs]   = { 0.00, 1.00, 1.00 };
+    Double_t green[NRGBs] = { 0.00, 1.00, 0.00 };
+    Double_t blue[NRGBs]  = { 1.00, 1.00, 0.00 };
+    TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+    gStyle->SetNumberContours(NCont);
 
     // Çizimi yap
     TCanvas *canvas = new TCanvas("canvas", "Canvas", 800, 600);

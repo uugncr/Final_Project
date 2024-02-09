@@ -1,5 +1,6 @@
 #include <TCanvas.h>
 #include <TH2F.h>
+#include <TColor.h> // Renk paleti için eklenen kütüphane
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -50,6 +51,17 @@ void two() {
         }
         file.close();
     }
+    
+    // Renk paleti oluştur
+    const Int_t NRGBs = 3;
+    const Int_t NCont = 255;
+    Double_t stops[NRGBs] = { 0.00, 0.50, 1.00 };
+    Double_t red[NRGBs]   = { 0.00, 1.00, 1.00 };
+    Double_t green[NRGBs] = { 0.00, 1.00, 0.00 };
+    Double_t blue[NRGBs]  = { 1.00, 1.00, 0.00 };
+    TColor::CreateGradientColorTable(NRGBs, stops, red, green, blue, NCont);
+    gStyle->SetNumberContours(NCont);
+
 
     // Çizimi yap
     TCanvas *canvas = new TCanvas("canvas", "Canvas", 800, 600);
