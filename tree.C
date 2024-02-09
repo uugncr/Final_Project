@@ -6,7 +6,7 @@
 
 void tree() {
     // Histogramı oluştur
-    TH2F *hist = new TH2F("hist", "N vs fom HT2F 2D Histogram;N;fom", 100, 0, 600, 120000, 0.5, 1);
+    TH2F *hist = new TH2F("hist", "N vs fom HT2F 2D Histogram;N;fom", 100, 0, 600, 100, 0.55, 0.90);
 
     // Dosya yolları
     const char* file_paths[] = {

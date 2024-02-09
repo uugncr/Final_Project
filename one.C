@@ -6,7 +6,7 @@
 
 void one() {
     // Histogramı oluştur
-    TH2F *hist = new TH2F("hist", "tail_integral vs fom HT2F 2D Histogram;tail_integral;fom", 1000, 0, 60000, 1200, 0.55, 0.90);
+    TH2F *hist = new TH2F("hist", "tail_integral vs fom HT2F 2D Histogram;tail_integral;fom", 6000, 0, 60000, 350, 0.55, 0.90);
 
     // Dosya yolları
     const char* file_paths[] = {

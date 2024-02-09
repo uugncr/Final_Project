@@ -13,12 +13,12 @@ def f(t, t0, s_r, s_f, N):
 #gaussian_data = pd.DataFrame()
 parameters_list = []
 
-for i in range(60000):
+for i in range(10000):
     t = np.linspace(0, 400, 1024)
     t0 = round(np.random.uniform(30,200), 4)
     N = round(np.random.uniform(50, 600), 4)
     s_r = round(np.random.uniform(5.5, 6.5), 4)
-    s_f = round(np.random.uniform(98,102), 4)
+    s_f = round(np.random.uniform(23,102), 4)
     # Gaussian sinyali üretiliyor
     y = np.array([f(i, t0, s_r, s_f, N) for i in t])
     noise = np.random.uniform(2, 8, 1024)
@@ -59,5 +59,5 @@ parameters_data = pd.DataFrame(parameters_list)
 
 # Verileri kaydetme (burada kullanıcının belirleyebileceği dinamik bir yol kullanılabilir)
 #gaussian_data.to_csv('data.csv', index=False)
-parameters_data.to_csv('parameters100.csv', index=False)
+parameters_data.to_csv('parameters_education.csv', index=False)
 

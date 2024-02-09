@@ -24,9 +24,9 @@ s_r = np.random.uniform(5.5, 6.5)
 s_f = np.random.uniform(48,52)
 print("N:", N, "\nN%10:", N * 0.1, "\nN%90:", N * 0.9, "\ns_r:", s_r, "\ns_f:", s_f)
 """
-N = 400
+N = 331.2
 s_r = 6
-s_f = 25
+s_f = 72
 print("N:", N, "\nN%10:", N * 0.1, "\nN%90:", N * 0.9, "\ns_r:", s_r, "\ns_f:", s_f)
 
 ########
