@@ -27,7 +27,7 @@ best_test_size_mse = 0  # En iyi MSE değerine sahip test_size
 # Döngü içinde test_size ile denemeler
 for test_size in np.arange(0.1, 1.0, 0.1):
     # Veri setini eğitim ve test seti olarak bölme
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6 random_state=80)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6 ,random_state=80)
     
     # Verileri ölçeklendirme
     X_train_scaled = scaler.fit_transform(X_train)
@@ -67,38 +67,19 @@ print(f"En iyi MSE: {best_mse:.4f} (Test Size: {best_test_size_mse:.1f})")
 model.save('patric_best.keras')
 
 
-# Test veri seti için girdi ve hedefi ayarlama
-X_test_df = df_test[['t0', 't1', 't2', 't3', 't4', 'N', 'd_r', 'd_f', 'total_integral', 'tail_integral', 'fom']]
-y_test_df = df_test[['s_r', 's_f']]
+# df4 için giriş ve hedefi ayarlayın (Varsayım: df4, X ve y için aynı sütunlara sahiptir)
+X_df4 = df4[['t0', 't1', 't2', 't3', 't4', 'N', 'd_r', 'd_f', 'total_integral', 'tail_integral','fom']]
+y_df4 = df4[['s_r', 's_f']]
 
-# Veri normalizasyonu için MinMaxScaler örneği
-scaler = MinMaxScaler()
+# df4 veri setini ölçeklendirin
+X_df4_scaled = scaler.transform(X_df4)
 
-# Eğitim ve test veri setlerini ölçeklendirme
-X_scaled = scaler.fit_transform(X)
-X_test_scaled = scaler.transform(X_test_df)
+# Modeli kullanarak df4 üzerinde tahminler yapın
+predictions_df4 = model.predict(X_df4_scaled)
 
-# Modeli oluşturma
-model = Sequential([
-    Dense(128, input_dim=X_scaled.shape[1], activation='relu'),
-    Dense(64, activation='relu'),
-    Dense(32, activation='relu'),
-    Dense(16, activation='relu'),
-    Dense(2, activation='linear')
-])
+# Performans metriklerini hesaplayın
+mse = mean_squared_error(y_df4, predictions_df4)
+r2 = r2_score(y_df4, predictions_df4)
 
-# Modeli derleme
-model.compile(loss='mean_squared_error', optimizer='adam')
-
-# Model eğitimi ve değerlendirme döngüsü
-for test_size in np.arange(0.1, 1.0, 0.1):
-    print(f"\nEğitim için kullanılan test_size: {test_size}")
-    # Modeli eğitme
-    model.fit(X_scaled, y, epochs=100, batch_size=256, verbose=0)  # Eğitim sırasında çıktıyı gösterme
-
-    # Test veri seti üzerinde modeli değerlendirme
-    predictions_test = model.predict(X_test_scaled)
-    mse_test = mean_squared_error(y_test_df, predictions_test)
-    r2_test = r2_score(y_test_df, predictions_test)
-
-    print(f"Test Veri Seti Üzerinde MSE: {mse_test:.4f}, R^2: {r2_test:.4f}")
+print(f"MSE: {mse}")
+print(f"R^2: {r2}")
