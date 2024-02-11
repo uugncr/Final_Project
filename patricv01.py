@@ -6,12 +6,13 @@ from keras.layers import Dense
 from sklearn.metrics import mean_squared_error, r2_score
 from keras.optimizers import RMSprop
 from tensorflow.keras.optimizers import SGD
+import joblib
 
 # Ayrı ayrı veri setlerini yükleme
 df1 = pd.read_csv('/Users/uuu/Final_Project/parameters25.csv')
 df2 = pd.read_csv('/Users/uuu/Final_Project/parameters50.csv')
 df3 = pd.read_csv('/Users/uuu/Final_Project/parameters100.csv')
-df4 = pd.read_csv('/Users/uuu/Final_Project/test.csv')
+df4 = pd.read_csv('/Users/uuu/Final_Project/test02.csv')
 # Veri setlerini birleştirme
 df = pd.concat([df1, df2, df3])
 
@@ -26,7 +27,7 @@ y = df[[ 's_r', 's_f']]
 # Random_state R^2 :: 10/80 (en iyi/is yapar)
 # Random_state R^2 :: 20/80 (en iyi/is yapar)
 #                           Bu degerlendirmeler sonnucununda hem egitim hem test datalarinin optimimum degerleri test_size=0.6, random_state=80 olarak secildi.
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=10)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.6, random_state=80)
 
 # Veri normalizasyonu (MinMaxScaler kullanıyoruz çünkü genellikle ANN için iyi çalışır)
 scaler = MinMaxScaler()
@@ -115,9 +116,19 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 
 ###############################################################
 # Modeli eğitme
-model.fit(X_train_scaled, y_train, epochs=100, batch_size=256)
+model.fit(X_train_scaled, y_train, epochs=100, batch_size=128)
 #           best batch_size
-# batch_size = 256;epochs=100;optimizer='adam'
+#batch_size = 64;epochs=100;optimizer='adam'
+#                   Eğitim Seti MSE: 0.05077308401225001
+#                   Eğitim Seti R^2: 0.9114889200853993
+#    train          MSE:1.2425142712488497
+#                   R^2:0.8299997334095508
+#batch_size = 128;epochs=100;optimizer='adam' #####
+#                   Eğitim Seti MSE: 0.5258699614095805
+#                   Eğitim Seti R^2: 0.8879902543160655
+#    train          MSE: 1.0788224845928223
+#                   R^2: 0.8684846861874422
+# batch_size = 256;epochs=100;optimizer='adam' #####
 #                   Eğitim Seti MSE: 0.059015319793892074
 #                   Eğitim Seti R^2: 0.8781298660369043
 #    train          MSE: 1.009566059404731
@@ -167,9 +178,12 @@ train_r2 = r2_score(y_train, train_predictions)
 print(f"Eğitim Seti MSE: {train_mse}")
 print(f"Eğitim Seti R^2: {train_r2}")
 
+# Scaler'ı kaydet
+scaler_filename = "scaler.save"
+joblib.dump(scaler, scaler_filename)
 ###############################################################
 # Modeli kaydetme (İsteğe bağlı)----------------1
-model.save('iron_patrickv01.keras')
+model.save('iron_patrickv02.keras')
 # Modeli kaydetme (İsteğe bağlı)----------------2
 #model.save('patric_sgd.keras')
 # Modeli kaydetme (İsteğe bağlı)----------------3
