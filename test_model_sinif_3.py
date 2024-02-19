@@ -7,11 +7,9 @@ from sklearn.metrics import accuracy_score
 
 model_path = '/Users/uuu/Final_Project/sinniflandirma.keras'
 # Veri setlerinin gerçek yolları
-df1_path = '/Users/uuu/Final_Project/par25.csv'
-df2_path = '/Users/uuu/Final_Project/par50.csv'
-df3_path = '/Users/uuu/Final_Project/par100.csv'
-
-
+df1_path = '/Users/uuu/Final_Project/NEW_DATA 75000/parameters25.csv'
+df2_path = '/Users/uuu/Final_Project/NEW_DATA 75000/parameters50.csv'
+df3_path = '/Users/uuu/Final_Project/NEW_DATA 75000/parameters100.csv'
 # Veri setlerini yükleme ve birleştirme
 df1 = pd.read_csv(df1_path)
 df2 = pd.read_csv(df2_path)
@@ -42,4 +40,3 @@ photons_count = (predicted_classes == 2).sum()
 print(f'Elektron Sayısı: {electrons_count}')
 print(f'Nötron Sayısı: {neutrons_count}')
 print(f'Foton Sayısı: {photons_count}')
-

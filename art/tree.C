@@ -11,9 +11,9 @@ void tree() {
 
     // Dosya yolları
     const char* file_paths[] = {
-        "/Users/uuu/Final_Project/parameters25.csv",
-        "/Users/uuu/Final_Project/parameters50.csv",
-        "/Users/uuu/Final_Project/parameters100.csv"
+        "/Users/uuu/Final_Project/par25.csv",
+        "/Users/uuu/Final_Project/par50.csv",
+        "/Users/uuu/Final_Project/par100.csv"
     };
     
 

@@ -36,20 +36,28 @@ model.add(Dense(2, activation='linear'))  # Çıktı katmanı - 's_r' ve 's_f' i
 model.compile(loss='mean_squared_error', optimizer='adam')
 
 # Modeli eğitme
-model.fit(X_train_scaled, y_train, epochs=100, batch_size=126)
+model.fit(X_train_scaled, y_train, epochs=20, batch_size=1)
 
 # Eğitim seti üzerinde modelin performansını ölçme
 train_predictions = model.predict(X_train_scaled)
 train_mse = mean_squared_error(y_train, train_predictions)
 train_r2 = r2_score(y_train, train_predictions)
+
+# Test seti üzerinde tahminler yapma
+test_predictions = model.predict(X_test_scaled)
+# Test seti için MSE ve R^2 hesaplama
+test_mse = mean_squared_error(y_test, test_predictions)
+test_r2 = r2_score(y_test, test_predictions)
+
 # Performans metriklerini yazdırma
 print(f"Eğitim Seti MSE: {train_mse}")
 print(f"Eğitim Seti R^2: {train_r2}")
-
+print(f"Test Seti MSE: {test_mse}")
+print(f"Test Seti R^2: {test_r2}")
 # Scaler'ı kaydet
 scaler_filename = "scaler.save"
-joblib.dump(scaler, scaler_filename)
-model.save('patrick.keras')
+#joblib.dump(scaler, scaler_filename)
+#model.save('patrick.keras')
 
 """
 # df4 için giriş ve hedefi ayarlayın (Varsayım: df4, X ve y için aynı sütunlara sahiptir)
