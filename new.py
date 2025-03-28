@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
-# Dosya yolu
-file_path = '/Users/uuu/Final_Project/gaussian.csv'
+# Proje dizinindeki dosya yolunu oluştur
+current_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(current_dir, 'gaussian.csv')
 
 # Veriyi oku
 data = pd.read_csv(file_path)
