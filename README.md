@@ -1,27 +1,30 @@
-# Sintilatör Data Analizi ile Makine Öğrenimi
+# Sentetik Veri Üreterek AI Modeli Geliştirmek 
+# Deneysel Veri Toplama ve Modelin Doğruluğunu Test Edilecektir
 
-## Proje Amaç ve Özet
+## Proje Amacı ve Özeti
 
-Bu proje, sintilatör datalarının makine öğrenimi kullanılarak eğitilmesi ve deney sonuçlarının analizini kolaylaştırmayı amaçlamaktadır. 
-Sintilatör datalarını taklit etmek için belirli bir fonksiyon kullanılmış ve detektör çıkışının sabit olduğu, ancak `e^-lambda*t` ile bozunan ve üç farklı lambda değerine sahip olduğu durumlar incelenmiştir.
+Bu proje, sintilatör verilerinin makine öğrenimi teknikleriyle analiz edilmesini ve deney sonuçlarının daha kolay bir şekilde değerlendirilmesini amaçlamaktadır. Sintilatör verilerini simüle etmek için belirli bir matematiksel model kullanılmıştır. Bu modelde, dedektör çıkışı sabit olup, `e^-lambda*t` formülü ile bozunan ve üç farklı lambda değerine sahip durumlar incelenmiştir.
 
 ## Kullanım
 
-Proje, sintilatör datalarının karakteristik özelliklerini simüle etmek için bir dizi parametre kullanır:
+Proje, sintilatör verilerinin karakteristik özelliklerini simüle etmek için aşağıdaki parametreleri kullanır:
 
-- `t`: Zaman dizisi (x ekseni)
-- `t0`: Rastgele başlangıç ​​zamanı
-- `N`: Sinyalin yüksekliği (Amplitude)
-- `s_r`: Detektörün sigma değeri
-- `s_f`: Üç farklı bozulma için sigma değerleri
+- **`t`**: Zaman dizisi (x ekseni)
+- **`t0`**: Rastgele başlangıç zamanı
+- **`N`**: Sinyalin yüksekliği (Amplitude)
+- **`s_r`**: Dedektörün sigma değeri
+- **`s_f`**: Üç farklı bozulma için sigma değerleri
 
-Bu parametrelerle, gerçek sintilatör datalarına benzeyen uniform bir gürültü eklenir ve lineer interpolasyon yoluyla belirli noktalar arasında integral hesaplamaları yapılır. 
+Bu parametreler kullanılarak, gerçek sintilatör verilerine benzeyen bir yapı oluşturulur. Simülasyon sırasında uniform bir gürültü eklenir ve belirli noktalar arasında integral hesaplamaları yapılır.
 
-### Çalıştırma
+## Çalıştırma
 
-Proje kodunun çalıştırılması ve sonuçların görüntülenmesi için:
+Proje kodunu çalıştırmak ve sonuçları görüntülemek için aşağıdaki adımları izleyin:
 
-new.py dosyasini calistimanizi oneririm.
+1. `new.py` dosyasını çalıştırın:
+   ```bash
+   python new.py
+   ```
 
 Bu, analizin nasıl yapıldığını ve sonuçların nasıl elde edildiğini gösterir.
 
@@ -31,12 +34,12 @@ Analiz sonuçları, `art` klasörü içinde bulunan ve ROOT aracılığıyla ver
 
 ## Makine Öğrenimi Modelleri
 
-Projede, sintilatör datalarını kullanarak iki farklı makine öğrenimi modeli geliştirilmiştir:
+Projede, sintilatör verilerini kullanarak iki farklı makine öğrenimi modeli geliştirilmiştir:
 
 1. **Sınıflandırma:** 
    - `par_25`: Yüklü ve kütleli parçacık
    - `par_50`: Yüksüz ve kütleli parçacık
-   - `par_100`: Yüksüz ve kütleli enerji
+   - `par_100`: Yüksüz ve kütlesiz enerji
 
 2. **Regresyon:** 
    - En iyi makine öğrenimi modeli için çalışmalar devam etmektedir.

@@ -5,7 +5,7 @@ from scipy import stats
 from scipy import integrate
 from scipy import interpolate
 
-#Fonksiyon aa
+#Fonksiyon 
 
 def f(t, t0, s_r, s_f,N):
     if t < t0:

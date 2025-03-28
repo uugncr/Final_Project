@@ -5,7 +5,7 @@ import os
 
 # Proje dizinindeki dosya yolunu oluştur
 current_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(current_dir, 'gaussian.csv')
+file_path = os.path.join(current_dir, 'data_all', 'test_gaussian.csv')
 
 # Veriyi oku
 data = pd.read_csv(file_path)

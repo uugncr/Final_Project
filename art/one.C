@@ -4,23 +4,33 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
+#include <filesystem> // C++17 ile gelen dosya sistemi kütüphanesi
+
+namespace fs = std::filesystem;
 
 void one() {
     // Histogramı oluştur
     TH2F *hist = new TH2F("hist", "tail_integral vs fom HT2F 2D Histogram;tail_integral;fom", 600, 0, 60000, 600, 0.55, 0.90);
 
-    // Dosya yolları
-    const char* file_paths[] = {
-        "/Users/uuu/Final_Project/par25.csv",
-        "/Users/uuu/Final_Project/par50.csv",
-        "/Users/uuu/Final_Project/par100.csv"
-    };
-    
+    // Final_Project dizinindeki tüm CSV dosyalarını bul
+    std::vector<std::string> file_paths;
+    std::string base_dir = "../"; // Final_Project dizinine göre ayarla
+    for (const auto& entry : fs::recursive_directory_iterator(base_dir)) {
+        if (entry.path().extension() == ".csv") {
+            file_paths.push_back(entry.path().string());
+        }
+    }
+
     // Dosyaları okuyup histograma doldur
-    for (auto &file_path : file_paths) {
+    for (const auto& file_path : file_paths) {
         std::ifstream file(file_path);
+        if (!file.is_open()) {
+            std::cerr << "Dosya açılamadı: " << file_path << std::endl;
+            continue;
+        }
+
         std::string line;
-        
         // İlk satırı atla (eğer başlık varsa)
         std::getline(file, line);
         
@@ -50,10 +60,10 @@ void one() {
         }
         file.close();
     }
-    
+
     // Renk paleti oluştur
     const Int_t NRGBs = 3;
-    const Int_t NCont =10;
+    const Int_t NCont = 10;
     Double_t stops[NRGBs] = { 0.00, 0.50, 1.00 };
     Double_t red[NRGBs]   = { 0.00, 1.00, 1.00 };
     Double_t green[NRGBs] = { 0.00, 1.00, 0.00 };
