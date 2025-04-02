@@ -77,6 +77,19 @@ Bu, analizin nasıl yapıldığını ve sonuçların nasıl elde edildiğini gö
 
 Analiz sonuçları, `art` klasörü içinde bulunan ve ROOT aracılığıyla verilerin görsel olarak ayrıldığı dosyalarda saklanır.
 
+## Yeni Görselleştirme Araçları
+
+Projeye iki yeni Python dosyası eklenmiştir:
+
+1. **`art_total.py`**:
+   - Bu dosya, kullanılan yöntemin genel ayrım gücünü görselleştirir.
+   - Tüm veriler bir arada analiz edilerek sonuçlar görsel olarak sunulur.
+
+   Çalıştırmak için:
+   ```bash
+   python art_total.py
+   ```
+
 ## Makine Öğrenimi Modelleri
 
 Projede, sintilatör verilerini kullanarak iki farklı makine öğrenimi modeli geliştirilmiştir:
